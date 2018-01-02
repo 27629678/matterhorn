@@ -12,9 +12,9 @@
 
 @interface XYDataBlock ()
 
-@property (nonatomic, assign) long timestamp;
+@property (nonatomic, copy) NSNumber *timestamp;
+@property (nonatomic, copy, readwrite) NSNumber *status;
 @property (nonatomic, copy, readwrite) id<NSCopying> etag;
-@property (nonatomic, assign, readwrite) XYDataBlockStatus status;
 
 @end
 
@@ -23,7 +23,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.status = XYDataBlockStatusNone;
+        self.status = @(XYDataBlockStatusNone);
     }
     
     return self;
@@ -53,7 +53,7 @@
 
 - (NSDictionary *)etagsForStatus:(XYDataBlockStatus)status
 {
-    if (status != self.status) {
+    if (status != self.status.unsignedIntegerValue) {
         return nil;
     }
     
@@ -62,7 +62,7 @@
 
 - (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status
 {
-    if (status != self.status) {
+    if (status != self.status.unsignedIntegerValue) {
         return nil;
     }
     
@@ -82,9 +82,9 @@
 - (NSDictionary *)jsonDictionary
 {
     NSMutableDictionary *json = [NSMutableDictionary dictionary];
-    [json setObject:self.etag forKey:kXYDataKey_ETag];
-    [json setObject:@(self.status) forKey:kXYDataKey_Status];
-    [json setObject:@(self.timestamp) forKey:kXYDataKey_Date];
+    [json setValue:self.etag forKey:kXYDataKey_ETag];
+    [json setValue:self.status forKey:kXYDataKey_Status];
+    [json setValue:self.timestamp forKey:kXYDataKey_Date];
     
     // values
     NSMutableDictionary *values = nil;
@@ -113,7 +113,7 @@
 
 - (void)switchBlockStatusTo:(XYDataBlockStatus)status
 {
-    self.status = status;
+    self.status = @(status);
 }
 
 #pragma mark - getter & setter

@@ -15,6 +15,7 @@
 		DA41234F1FFB35080064A083 /* XYMergeableContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41234E1FFB35080064A083 /* XYMergeableContainer.m */; };
 		DA4123531FFB367F0064A083 /* XYDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123521FFB367F0064A083 /* XYDataObject.m */; };
 		DA4123581FFB618B0064A083 /* XYDataRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123571FFB618B0064A083 /* XYDataRuntimeUtils.m */; };
+		DA41235B1FFB6D3E0064A083 /* XYClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41235A1FFB6D3E0064A083 /* XYClassProperty.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,8 @@
 		DA4123541FFB3ACF0064A083 /* XYDataObjectExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataObjectExtension.h; sourceTree = "<group>"; };
 		DA4123561FFB618B0064A083 /* XYDataRuntimeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataRuntimeUtils.h; sourceTree = "<group>"; };
 		DA4123571FFB618B0064A083 /* XYDataRuntimeUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYDataRuntimeUtils.m; sourceTree = "<group>"; };
+		DA4123591FFB6D3E0064A083 /* XYClassProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYClassProperty.h; sourceTree = "<group>"; };
+		DA41235A1FFB6D3E0064A083 /* XYClassProperty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYClassProperty.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 			children = (
 				DA4123561FFB618B0064A083 /* XYDataRuntimeUtils.h */,
 				DA4123571FFB618B0064A083 /* XYDataRuntimeUtils.m */,
+				DA4123591FFB6D3E0064A083 /* XYClassProperty.h */,
+				DA41235A1FFB6D3E0064A083 /* XYClassProperty.m */,
 			);
 			path = runtime;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			files = (
 				DA4123471FFB2D3C0064A083 /* XYDataConstant.m in Sources */,
 				DA4123401FFB2C5D0064A083 /* XYDataBlock.m in Sources */,
+				DA41235B1FFB6D3E0064A083 /* XYClassProperty.m in Sources */,
 				DA4123431FFB2C720064A083 /* XYDataContainer.m in Sources */,
 				DA4123531FFB367F0064A083 /* XYDataObject.m in Sources */,
 				DA41234B1FFB30CF0064A083 /* XYMergeableObject.m in Sources */,

@@ -10,7 +10,22 @@
 
 #import "XYMatterhorn.h"
 
+#import "XYClassProperty.h"
+#import "XYMergeableObject.h"
+
+@interface Setting1 : XYDataBlock
+
+@property NSString *version;
+
+@end
+
+@implementation Setting1
+
+@end
+
 int test_data_block(void);
+
+int test_run_time_utils(void);
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -20,22 +35,35 @@ int main(int argc, const char * argv[]) {
         assert(test_data_block() == 0);
         
         NSLog(@"-- END.");
+        
+        assert(test_run_time_utils() == 0);
     }
+    
     return 0;
 }
 
 int test_data_block() {
     XYDataBlock *block = [XYDataBlock new];
     
-    assert(block.status == XYDataBlockStatusNone);
+    assert(block.status.unsignedIntegerValue == XYDataBlockStatusNone);
     
     [block markModified];
-    assert(block.status == XYDataBlockStatusModified);
+    assert(block.status.unsignedIntegerValue == XYDataBlockStatusModified);
     
     [block markDeleted];
-    assert(block.status == XYDataBlockStatusDeleted);
+    assert(block.status.unsignedIntegerValue == XYDataBlockStatusDeleted);
     
     NSLog(@"-- Block test passed!");
+    
+    return 0;
+}
+
+int test_run_time_utils() {
+    Setting1 *s1 = [Setting1 new];
+    s1.version = @"1.0.0";
+    
+    NSDictionary *properties = propertiesOf(s1, [XYMergeableObject class]);
+    assert(properties.count > 0);
     
     return 0;
 }
