@@ -8,10 +8,12 @@
 
 #import "XYDataBlock.h"
 
+#import "XYDataRuntimeUtils.h"
+
 @interface XYDataBlock ()
 
-@property (nonatomic, copy, readwrite) id etag;
-
+@property (nonatomic, assign) long timestamp;
+@property (nonatomic, copy, readwrite) id<NSCopying> etag;
 @property (nonatomic, assign, readwrite) XYDataBlockStatus status;
 
 @end
@@ -21,7 +23,6 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.etag = @(0);
         self.status = XYDataBlockStatusNone;
     }
     
@@ -45,26 +46,67 @@
 
 #pragma mark - protocol methods
 
+- (NSDictionary *)allETags
+{
+    return @{ kXYDataKey_ETag: self.etag };
+}
+
 - (NSDictionary *)etagsForStatus:(XYDataBlockStatus)status
 {
-    return @{ kXYDataKey_ETag: (self.etag ? : @"no-etag") };
+    if (status != self.status) {
+        return nil;
+    }
+    
+    return @{ kXYDataKey_ETag: self.etag };
 }
 
 - (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status
 {
-    return @{};
+    if (status != self.status) {
+        return nil;
+    }
+    
+    NSMutableDictionary *values = nil;
+    NSError *error = [XYDataRuntimeUtils populateValues:&values fromBlock:self];
+    if (error) {
+        NSCAssert(NO, error.description);
+        
+        return nil;
+    }
+    
+    return values.copy;
 }
 
 #pragma mark - json serialization methods
 
 - (NSDictionary *)jsonDictionary
 {
-    return @{};
+    NSMutableDictionary *json = [NSMutableDictionary dictionary];
+    [json setObject:self.etag forKey:kXYDataKey_ETag];
+    [json setObject:@(self.status) forKey:kXYDataKey_Status];
+    [json setObject:@(self.timestamp) forKey:kXYDataKey_Date];
+    
+    // values
+    NSMutableDictionary *values = nil;
+    NSError *error = [XYDataRuntimeUtils populateValues:&values fromBlock:self];
+    if (error) {
+        NSCAssert(NO, error.description);
+        
+        return json.copy;
+    }
+    
+    [json setValue:values forKey:kXYDataKey_Value];
+    
+    return json.copy;
 }
 
 - (instancetype)initWithJsonDictionary:(NSDictionary *)json
 {
-    return nil;
+    if (self = [super init]) {
+        [XYDataRuntimeUtils retrieveBlock:self fromJson:json];
+    }
+    
+    return self;
 }
 
 #pragma mark - private
@@ -72,6 +114,17 @@
 - (void)switchBlockStatusTo:(XYDataBlockStatus)status
 {
     self.status = status;
+}
+
+#pragma mark - getter & setter
+
+- (id<NSCopying>)etag
+{
+    if (!_etag) {
+        _etag = @"no-etag";
+    }
+    
+    return _etag;
 }
 
 @end

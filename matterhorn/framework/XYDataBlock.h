@@ -12,7 +12,7 @@
 
 @interface XYDataBlock : XYMergeableObject <XYDataProtocol, XYDataJsonSerializationProtocol>
 
-@property (nonatomic, copy, readonly) id etag;
+@property (nonatomic, copy, readonly) id<NSCopying> etag;
 
 @property (nonatomic, assign, readonly) XYDataBlockStatus status;
 

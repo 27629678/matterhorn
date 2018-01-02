@@ -12,6 +12,8 @@
 
 @protocol XYDataProtocol <NSObject>
 
+- (NSDictionary *)allETags;
+
 - (NSDictionary *)etagsForStatus:(XYDataBlockStatus)status;
 
 - (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status;

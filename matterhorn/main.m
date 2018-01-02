@@ -27,7 +27,6 @@ int main(int argc, const char * argv[]) {
 int test_data_block() {
     XYDataBlock *block = [XYDataBlock new];
     
-    assert([block.etag isEqualToNumber:@(0)]);
     assert(block.status == XYDataBlockStatusNone);
     
     [block markModified];

@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, XYDataBlockStatus) {
 extern NSString* const kXYDataKey_ETag;
 extern NSString* const kXYDataKey_Date;
 extern NSString* const kXYDataKey_Value;
+extern NSString* const kXYDataKey_Status;
 
 @interface XYDataConstant : NSObject
 

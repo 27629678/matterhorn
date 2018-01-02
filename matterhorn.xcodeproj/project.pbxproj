@@ -14,6 +14,7 @@
 		DA41234B1FFB30CF0064A083 /* XYMergeableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41234A1FFB30CF0064A083 /* XYMergeableObject.m */; };
 		DA41234F1FFB35080064A083 /* XYMergeableContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41234E1FFB35080064A083 /* XYMergeableContainer.m */; };
 		DA4123531FFB367F0064A083 /* XYDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123521FFB367F0064A083 /* XYDataObject.m */; };
+		DA4123581FFB618B0064A083 /* XYDataRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123571FFB618B0064A083 /* XYDataRuntimeUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +47,8 @@
 		DA4123511FFB367F0064A083 /* XYDataObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataObject.h; sourceTree = "<group>"; };
 		DA4123521FFB367F0064A083 /* XYDataObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYDataObject.m; sourceTree = "<group>"; };
 		DA4123541FFB3ACF0064A083 /* XYDataObjectExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataObjectExtension.h; sourceTree = "<group>"; };
+		DA4123561FFB618B0064A083 /* XYDataRuntimeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataRuntimeUtils.h; sourceTree = "<group>"; };
+		DA4123571FFB618B0064A083 /* XYDataRuntimeUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYDataRuntimeUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,7 @@
 		DA4123481FFB309B0064A083 /* internal */ = {
 			isa = PBXGroup;
 			children = (
+				DA4123551FFB61670064A083 /* runtime */,
 				DA4123511FFB367F0064A083 /* XYDataObject.h */,
 				DA4123521FFB367F0064A083 /* XYDataObject.m */,
 				DA4123541FFB3ACF0064A083 /* XYDataObjectExtension.h */,
@@ -112,6 +116,15 @@
 				DA41234E1FFB35080064A083 /* XYMergeableContainer.m */,
 			);
 			path = internal;
+			sourceTree = "<group>";
+		};
+		DA4123551FFB61670064A083 /* runtime */ = {
+			isa = PBXGroup;
+			children = (
+				DA4123561FFB618B0064A083 /* XYDataRuntimeUtils.h */,
+				DA4123571FFB618B0064A083 /* XYDataRuntimeUtils.m */,
+			);
+			path = runtime;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +191,7 @@
 				DA41234B1FFB30CF0064A083 /* XYMergeableObject.m in Sources */,
 				DA4123361FFB2C070064A083 /* main.m in Sources */,
 				DA41234F1FFB35080064A083 /* XYMergeableContainer.m in Sources */,
+				DA4123581FFB618B0064A083 /* XYDataRuntimeUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
