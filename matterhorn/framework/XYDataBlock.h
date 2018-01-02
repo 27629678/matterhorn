@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #import "XYDataConstant.h"
+#import "XYMergeableObject.h"
 
-@interface XYDataBlock : NSObject
+@interface XYDataBlock : XYMergeableObject
 
 @property (nonatomic, copy, readonly) id etag;
 

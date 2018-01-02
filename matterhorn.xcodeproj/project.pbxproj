@@ -11,6 +11,7 @@
 		DA4123401FFB2C5D0064A083 /* XYDataBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41233F1FFB2C5D0064A083 /* XYDataBlock.m */; };
 		DA4123431FFB2C720064A083 /* XYDataContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123421FFB2C720064A083 /* XYDataContainer.m */; };
 		DA4123471FFB2D3C0064A083 /* XYDataConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123461FFB2D3C0064A083 /* XYDataConstant.m */; };
+		DA41234B1FFB30CF0064A083 /* XYMergeableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41234A1FFB30CF0064A083 /* XYMergeableObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,8 @@
 		DA4123441FFB2CBB0064A083 /* XYDataProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataProtocol.h; sourceTree = "<group>"; };
 		DA4123451FFB2D3C0064A083 /* XYDataConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataConstant.h; sourceTree = "<group>"; };
 		DA4123461FFB2D3C0064A083 /* XYDataConstant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYDataConstant.m; sourceTree = "<group>"; };
+		DA4123491FFB30CF0064A083 /* XYMergeableObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYMergeableObject.h; sourceTree = "<group>"; };
+		DA41234A1FFB30CF0064A083 /* XYMergeableObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYMergeableObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +79,7 @@
 		DA41233D1FFB2C490064A083 /* framework */ = {
 			isa = PBXGroup;
 			children = (
+				DA4123481FFB309B0064A083 /* internal */,
 				DA41233E1FFB2C5D0064A083 /* XYDataBlock.h */,
 				DA41233F1FFB2C5D0064A083 /* XYDataBlock.m */,
 				DA4123441FFB2CBB0064A083 /* XYDataProtocol.h */,
@@ -85,6 +89,15 @@
 				DA4123461FFB2D3C0064A083 /* XYDataConstant.m */,
 			);
 			path = framework;
+			sourceTree = "<group>";
+		};
+		DA4123481FFB309B0064A083 /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				DA4123491FFB30CF0064A083 /* XYMergeableObject.h */,
+				DA41234A1FFB30CF0064A083 /* XYMergeableObject.m */,
+			);
+			path = internal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +160,7 @@
 				DA4123471FFB2D3C0064A083 /* XYDataConstant.m in Sources */,
 				DA4123401FFB2C5D0064A083 /* XYDataBlock.m in Sources */,
 				DA4123431FFB2C720064A083 /* XYDataContainer.m in Sources */,
+				DA41234B1FFB30CF0064A083 /* XYMergeableObject.m in Sources */,
 				DA4123361FFB2C070064A083 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
