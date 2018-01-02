@@ -1,5 +1,5 @@
 //
-//  XYMergeableObject.h
+//  XYMergeableContainer.h
 //  matterhorn
 //
 //  Created by hzyuxiaohua on 02/01/2018.
@@ -8,6 +8,6 @@
 
 #import "XYDataObject.h"
 
-@interface XYMergeableObject : XYDataObject
+@interface XYMergeableContainer : XYDataObject
 
 @end

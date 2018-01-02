@@ -6,8 +6,8 @@
 //  Copyright © 2018 hzyuxiaohua. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "XYMergeableContainer.h"
 
-@interface XYDataContainer : NSObject
+@interface XYDataContainer : XYMergeableContainer
 
 @end

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define XY_MATTER_HORN_DEBUG 0
+
 typedef NS_ENUM(NSUInteger, XYDataBlockStatus) {
     XYDataBlockStatusNone,                  // marked normal
     XYDataBlockStatusModified,              // marked modified

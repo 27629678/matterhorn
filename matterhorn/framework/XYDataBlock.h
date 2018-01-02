@@ -6,10 +6,9 @@
 //  Copyright © 2018 hzyuxiaohua. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "XYMergeableObject.h"
 
 #import "XYDataConstant.h"
-#import "XYMergeableObject.h"
 
 @interface XYDataBlock : XYMergeableObject
 
