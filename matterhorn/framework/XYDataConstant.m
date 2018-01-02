@@ -8,6 +8,10 @@
 
 #import "XYDataConstant.h"
 
+NSString* const kXYDataKey_ETag         = @"etag";
+NSString* const kXYDataKey_Date         = @"date";
+NSString* const kXYDataKey_Value        = @"value";
+
 @implementation XYDataConstant
 
 @end

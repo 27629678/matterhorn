@@ -8,6 +8,8 @@
 
 #import "XYMergeableContainer.h"
 
-@interface XYDataContainer : XYMergeableContainer
+#import "XYDataProtocol.h"
+
+@interface XYDataContainer : XYMergeableContainer <XYDataProtocol>
 
 @end

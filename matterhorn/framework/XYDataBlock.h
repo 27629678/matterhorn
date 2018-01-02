@@ -8,9 +8,9 @@
 
 #import "XYMergeableObject.h"
 
-#import "XYDataConstant.h"
+#import "XYDataProtocol.h"
 
-@interface XYDataBlock : XYMergeableObject
+@interface XYDataBlock : XYMergeableObject <XYDataProtocol>
 
 @property (nonatomic, copy, readonly) id etag;
 

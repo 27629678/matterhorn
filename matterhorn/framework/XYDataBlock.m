@@ -43,6 +43,18 @@
     [self switchBlockStatusTo:XYDataBlockStatusModified];
 }
 
+#pragma mark - protocol methods
+
+- (NSDictionary *)etagsForStatus:(XYDataBlockStatus)status
+{
+    return @{};
+}
+
+- (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status
+{
+    return @{};
+}
+
 #pragma mark - private
 
 - (void)switchBlockStatusTo:(XYDataBlockStatus)status

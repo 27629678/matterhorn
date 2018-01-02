@@ -16,6 +16,10 @@ typedef NS_ENUM(NSUInteger, XYDataBlockStatus) {
     XYDataBlockStatusDeleted,               // marked deleted
 };
 
+extern NSString* const kXYDataKey_ETag;
+extern NSString* const kXYDataKey_Date;
+extern NSString* const kXYDataKey_Value;
+
 @interface XYDataConstant : NSObject
 
 @end
