@@ -10,7 +10,7 @@
 
 #import "XYDataProtocol.h"
 
-@interface XYDataBlock : XYMergeableObject <XYDataProtocol>
+@interface XYDataBlock : XYMergeableObject <XYDataProtocol, XYDataJsonSerializationProtocol>
 
 @property (nonatomic, copy, readonly) id etag;
 

@@ -16,4 +16,12 @@
 
 - (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status;
 
-@end
+@end    // XYDataProtocol
+
+@protocol XYDataJsonSerializationProtocol <NSObject>
+
+- (NSDictionary *)jsonDictionary;
+
+- (instancetype)initWithJsonDictionary:(NSDictionary *)json;
+
+@end    // XYDataSerializationProtocol

@@ -22,4 +22,16 @@
     return @{};
 }
 
+#pragma mark - json serialization methods
+
+- (NSDictionary *)jsonDictionary
+{
+    return @{};
+}
+
+- (instancetype)initWithJsonDictionary:(NSDictionary *)json
+{
+    return nil;
+}
+
 @end

@@ -10,6 +10,6 @@
 
 #import "XYDataProtocol.h"
 
-@interface XYDataContainer : XYMergeableContainer <XYDataProtocol>
+@interface XYDataContainer : XYMergeableContainer <XYDataProtocol, XYDataJsonSerializationProtocol>
 
 @end

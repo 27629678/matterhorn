@@ -47,12 +47,24 @@
 
 - (NSDictionary *)etagsForStatus:(XYDataBlockStatus)status
 {
-    return @{};
+    return @{ kXYDataKey_ETag: (self.etag ? : @"no-etag") };
 }
 
 - (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status
 {
     return @{};
+}
+
+#pragma mark - json serialization methods
+
+- (NSDictionary *)jsonDictionary
+{
+    return @{};
+}
+
+- (instancetype)initWithJsonDictionary:(NSDictionary *)json
+{
+    return nil;
 }
 
 #pragma mark - private
