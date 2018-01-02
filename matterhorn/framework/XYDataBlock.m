@@ -8,6 +8,36 @@
 
 #import "XYDataBlock.h"
 
+@interface XYDataBlock ()
+
+@property (nonatomic, copy, readwrite) id etag;
+
+@property (nonatomic, assign, readwrite) XYDataBlockStatus status;
+
+@end
+
 @implementation XYDataBlock
+
+- (void)markNormal
+{
+    [self switchBlockStatusTo:XYDataBlockStatusNone];
+}
+
+- (void)markDeleted
+{
+    [self switchBlockStatusTo:XYDataBlockStatusDeleted];
+}
+
+- (void)markModified
+{
+    [self switchBlockStatusTo:XYDataBlockStatusModified];
+}
+
+#pragma mark - private
+
+- (void)switchBlockStatusTo:(XYDataBlockStatus)status
+{
+    self.status = status;
+}
 
 @end

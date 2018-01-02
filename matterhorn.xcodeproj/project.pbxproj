@@ -10,6 +10,7 @@
 		DA4123361FFB2C070064A083 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123351FFB2C070064A083 /* main.m */; };
 		DA4123401FFB2C5D0064A083 /* XYDataBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41233F1FFB2C5D0064A083 /* XYDataBlock.m */; };
 		DA4123431FFB2C720064A083 /* XYDataContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123421FFB2C720064A083 /* XYDataContainer.m */; };
+		DA4123471FFB2D3C0064A083 /* XYDataConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4123461FFB2D3C0064A083 /* XYDataConstant.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +33,8 @@
 		DA4123411FFB2C720064A083 /* XYDataContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataContainer.h; sourceTree = "<group>"; };
 		DA4123421FFB2C720064A083 /* XYDataContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYDataContainer.m; sourceTree = "<group>"; };
 		DA4123441FFB2CBB0064A083 /* XYDataProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataProtocol.h; sourceTree = "<group>"; };
+		DA4123451FFB2D3C0064A083 /* XYDataConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYDataConstant.h; sourceTree = "<group>"; };
+		DA4123461FFB2D3C0064A083 /* XYDataConstant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYDataConstant.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +81,8 @@
 				DA4123441FFB2CBB0064A083 /* XYDataProtocol.h */,
 				DA4123411FFB2C720064A083 /* XYDataContainer.h */,
 				DA4123421FFB2C720064A083 /* XYDataContainer.m */,
+				DA4123451FFB2D3C0064A083 /* XYDataConstant.h */,
+				DA4123461FFB2D3C0064A083 /* XYDataConstant.m */,
 			);
 			path = framework;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA4123471FFB2D3C0064A083 /* XYDataConstant.m in Sources */,
 				DA4123401FFB2C5D0064A083 /* XYDataBlock.m in Sources */,
 				DA4123431FFB2C720064A083 /* XYDataContainer.m in Sources */,
 				DA4123361FFB2C070064A083 /* main.m in Sources */,

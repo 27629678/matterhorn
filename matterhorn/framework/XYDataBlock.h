@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+#import "XYDataConstant.h"
+
 @interface XYDataBlock : NSObject
+
+@property (nonatomic, copy, readonly) id etag;
+
+@property (nonatomic, assign, readonly) XYDataBlockStatus status;
+
+- (void)markModified;
+
+- (void)markDeleted;
 
 @end
