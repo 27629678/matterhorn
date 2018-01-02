@@ -38,6 +38,7 @@
 		DA4123461FFB2D3C0064A083 /* XYDataConstant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYDataConstant.m; sourceTree = "<group>"; };
 		DA4123491FFB30CF0064A083 /* XYMergeableObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYMergeableObject.h; sourceTree = "<group>"; };
 		DA41234A1FFB30CF0064A083 /* XYMergeableObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYMergeableObject.m; sourceTree = "<group>"; };
+		DA41234C1FFB32040064A083 /* XYMatterhorn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XYMatterhorn.h; path = matterhorn/framework/XYMatterhorn.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +80,7 @@
 		DA41233D1FFB2C490064A083 /* framework */ = {
 			isa = PBXGroup;
 			children = (
+				DA41234C1FFB32040064A083 /* XYMatterhorn.h */,
 				DA4123481FFB309B0064A083 /* internal */,
 				DA41233E1FFB2C5D0064A083 /* XYDataBlock.h */,
 				DA41233F1FFB2C5D0064A083 /* XYDataBlock.m */,

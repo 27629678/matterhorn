@@ -18,6 +18,16 @@
 
 @implementation XYDataBlock
 
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.etag = @(0);
+        self.status = XYDataBlockStatusNone;
+    }
+    
+    return self;
+}
+
 - (void)markNormal
 {
     [self switchBlockStatusTo:XYDataBlockStatusNone];
