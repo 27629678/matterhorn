@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+#import "XYDataConstant.h"
+
 @protocol XYDataProtocol <NSObject>
+
+- (NSDictionary *)etagsForStatus:(XYDataBlockStatus)status;
+
+- (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status;
 
 @end
