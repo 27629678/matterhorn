@@ -27,3 +27,11 @@
 - (instancetype)initWithJsonDictionary:(NSDictionary *)json;
 
 @end    // XYDataSerializationProtocol
+
+@protocol XYCustomDataJsonSerializationProtocol <NSObject>
+
+- (NSDictionary *)jsonDictionaryForCustom;
+
+- (instancetype)initWithCustomJsonDictionary:(NSDictionary *)json;
+
+@end    // XYDataSerializationProtocol

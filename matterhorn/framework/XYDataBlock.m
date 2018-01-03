@@ -9,6 +9,7 @@
 #import "XYDataBlock.h"
 
 #import "XYDataRuntimeUtils.h"
+#import "XYDataObjectExtension.h"
 
 @interface XYDataBlock ()
 
@@ -42,6 +43,11 @@
 - (void)markModified
 {
     [self switchBlockStatusTo:XYDataBlockStatusModified];
+}
+
+- (NSArray *)ignoredProperties
+{
+    return @[ @"etag", @"timestamp", @"status"];
 }
 
 #pragma mark - protocol methods

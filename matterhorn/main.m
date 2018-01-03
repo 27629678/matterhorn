@@ -27,6 +27,8 @@ int test_data_block(void);
 
 int test_run_time_utils(void);
 
+int test_data_block_serialization(void);
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
@@ -37,6 +39,8 @@ int main(int argc, const char * argv[]) {
         NSLog(@"-- END.");
         
         assert(test_run_time_utils() == 0);
+        
+        assert(test_data_block_serialization() == 0);
     }
     
     return 0;
@@ -64,6 +68,16 @@ int test_run_time_utils() {
     
     NSDictionary *properties = propertiesOf(s1, [XYMergeableObject class]);
     assert(properties.count > 0);
+    
+    return 0;
+}
+
+int test_data_block_serialization() {
+    Setting1 *s1 = [Setting1 new];
+    s1.version = @"1.0.0";
+    NSDictionary *json = s1.jsonDictionary;
+    
+    assert(json.count > 0);
     
     return 0;
 }
