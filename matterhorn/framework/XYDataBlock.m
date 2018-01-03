@@ -68,7 +68,7 @@
 
 - (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status
 {
-    if (status != self.status.unsignedIntegerValue) {
+    if (status != XYDataBlockStatusAll && status != self.status.unsignedIntegerValue) {
         return nil;
     }
     

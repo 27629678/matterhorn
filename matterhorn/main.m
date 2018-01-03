@@ -87,6 +87,8 @@ NSDictionary *test_data_container_serialization(void);
 
 int test_data_etags(void);
 
+int test_data_values(void);
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
@@ -105,6 +107,8 @@ int main(int argc, const char * argv[]) {
         assert(test_data_container_deserialization() == 0);
         
         assert(test_data_etags() == 0);
+        
+        assert(test_data_values() == 0);
         
         NSLog(@"-- END.");
     }
@@ -206,6 +210,17 @@ int test_data_etags() {
     NSDictionary *etags = [container etagsForStatus:XYDataBlockStatusAll];
     
     assert(etags.count > 0);
+    NSLog(@"-- Etags:%@", etags);
+    
+    return 0;
+}
+
+int test_data_values() {
+    XYDataContainer *container = data_container_constructor();
+    NSDictionary *values = [container valuesForStatus:XYDataBlockStatusAll];
+    
+    assert(values.count > 0);
+    NSLog(@"-- Values:%@", values);
     
     return 0;
 }

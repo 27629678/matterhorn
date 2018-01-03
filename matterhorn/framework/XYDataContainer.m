@@ -10,6 +10,7 @@
 
 #import "XYClassProperty.h"
 #import "XYDataRuntimeUtils.h"
+#import "XYDataObjectExtension.h"
 
 @implementation XYDataContainer
 
@@ -27,6 +28,16 @@
     [p2p enumerateKeysAndObjectsUsingBlock:^(NSString *property_name, XYClassProperty *property, BOOL *stop) {
         id value = [self valueForKey:property_name];
         
+        // if no value of the property_name, initiate a new one if it confirms to XYDataProtocol protocol
+        if (!value) {
+            id instance = [property.cls new];
+            if (![instance conformsToProtocol:@protocol(XYDataProtocol)]) {
+                return;
+            }
+            
+            value = instance;
+        }
+        
         // ignore custom data type
         if ([value conformsToProtocol:@protocol(XYCustomDataJsonSerializationProtocol)]) {
             return;
@@ -35,7 +46,8 @@
         // XYDataProtocol object
         if ([value conformsToProtocol:@protocol(XYDataProtocol)])
         {
-            [etags setValue:[value etagsForStatus:status] forKey:property_name];
+            id obj = [value etagsForStatus:status];
+            [etags setValue:obj forKey:property_name];
             
             return;
         }
@@ -48,7 +60,36 @@
 
 - (NSDictionary *)valuesForStatus:(XYDataBlockStatus)status
 {
-    return @{};
+    NSMutableDictionary *values = [NSMutableDictionary dictionary];
+    NSDictionary *p2p = propertiesOf(self, [XYMergeableContainer class]);
+    [p2p enumerateKeysAndObjectsUsingBlock:^(NSString *property_name, XYClassProperty *property, BOOL *stop) {
+        id value = [self valueForKey:property_name];
+        if (!value) {
+            if ([self.requiredProperties containsObject:property_name]) {
+                NSCAssert(NO, @"required value for key:", property_name);
+            }
+            
+            return;
+        }
+        
+        // ignore custom data type
+        if ([value conformsToProtocol:@protocol(XYCustomDataJsonSerializationProtocol)]) {
+            return;
+        }
+        
+        // XYDataProtocol object
+        if ([value conformsToProtocol:@protocol(XYDataProtocol)])
+        {
+            id obj = [value valuesForStatus:status];
+            [values setValue:obj forKey:property_name];
+            
+            return;
+        }
+        
+        NSCAssert(NO, @"invalid data type.");
+    }];
+    
+    return values;
 }
 
 #pragma mark - json serialization methods
