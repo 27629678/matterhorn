@@ -8,6 +8,8 @@
 
 #import "XYDataContainer.h"
 
+#import "XYDataRuntimeUtils.h"
+
 @implementation XYDataContainer
 
 #pragma mark - protocol methods
@@ -22,16 +24,33 @@
     return @{};
 }
 
+- (NSDictionary *)allETags {
+    return @{};
+}
+
+
 #pragma mark - json serialization methods
 
 - (NSDictionary *)jsonDictionary
 {
-    return @{};
+    NSDictionary *json = nil;
+    NSError *error = [XYDataRuntimeUtils populateValues:&json fromContainer:self];
+    if (error) {
+        NSCAssert(NO, error.description);
+        
+        return nil;
+    }
+    
+    return json;
 }
 
 - (instancetype)initWithJsonDictionary:(NSDictionary *)json
 {
-    return nil;
+    if (self = [super init]) {
+        [XYDataRuntimeUtils retrieveContainer:self fromJson:json];
+    }
+    
+    return self;
 }
 
 @end

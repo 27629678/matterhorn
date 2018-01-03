@@ -23,11 +23,63 @@
 
 @end
 
+@interface Setting2 : XYDataBlock
+
+@property NSString *greeting;
+
+@end
+
+@implementation Setting2
+
+@end
+
+@interface Setting3 : XYDataBlock
+
+@property NSNumber *latitude;
+
+@property NSNumber *longtitude;
+
+@end
+
+@implementation Setting3
+
+@end
+
+@interface Container1 : XYDataContainer
+
+@property Setting1 *s1;
+
+@property Setting2 *s2;
+
+@end
+
+@implementation Container1
+
+@end
+
+@interface Container2 : XYDataContainer
+
+@property Container1 *c1;
+
+@property Setting3 *s3;
+
+@end
+
+@implementation Container2
+
+@end
+
+XYDataBlock *data_block_constructor(void);
+
+XYDataContainer *data_container_constructor(void);
+
 int test_data_block(void);
 
 int test_run_time_utils(void);
 
 int test_data_block_serialization(void);
+
+int test_data_container_serialization(void);
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -41,9 +93,40 @@ int main(int argc, const char * argv[]) {
         assert(test_run_time_utils() == 0);
         
         assert(test_data_block_serialization() == 0);
+        
+        assert(test_data_container_serialization() == 0);
     }
     
     return 0;
+}
+
+XYDataBlock *data_block_constructor() {
+    Setting1 *s1 = [Setting1 new];
+    s1.version = @"1.0.0";
+    
+    return s1;
+}
+
+XYDataContainer *data_container_constructor() {
+    Setting1 *s1 = [Setting1 new];
+    s1.version = @"1.0.0";
+    
+    Setting2 *s2 = [Setting2 new];
+    s2.greeting = @"hello, world.";
+    
+    Container1 *c1 = [Container1 new];
+    c1.s1 = s1;
+    c1.s2 = s2;
+    
+    Setting3 *s3 = [Setting3 new];
+    s3.latitude = @(1.0);
+    s3.longtitude = @(20.3);
+    
+    Container2 *c2 = [Container2 new];
+    c2.c1 = c1;
+    c2.s3 = s3;
+    
+    return c2;
 }
 
 int test_data_block() {
@@ -63,19 +146,25 @@ int test_data_block() {
 }
 
 int test_run_time_utils() {
-    Setting1 *s1 = [Setting1 new];
-    s1.version = @"1.0.0";
-    
-    NSDictionary *properties = propertiesOf(s1, [XYMergeableObject class]);
+    XYDataBlock *block = data_block_constructor();
+    NSDictionary *properties = propertiesOf(block, [XYMergeableObject class]);
     assert(properties.count > 0);
     
     return 0;
 }
 
 int test_data_block_serialization() {
-    Setting1 *s1 = [Setting1 new];
-    s1.version = @"1.0.0";
-    NSDictionary *json = s1.jsonDictionary;
+    XYDataBlock *block = data_block_constructor();
+    NSDictionary *json = block.jsonDictionary;
+    
+    assert(json.count > 0);
+    
+    return 0;
+}
+
+int test_data_container_serialization() {
+    XYDataContainer *container = data_container_constructor();
+    NSDictionary *json = container.jsonDictionary;
     
     assert(json.count > 0);
     
