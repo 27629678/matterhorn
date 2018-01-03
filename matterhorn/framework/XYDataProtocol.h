@@ -12,6 +12,8 @@
 
 @protocol XYDataProtocol <NSObject>
 
+- (void)merge:(NSDictionary *)json;
+
 - (NSDictionary *)allETags;
 
 - (NSDictionary *)etagsForStatus:(XYDataBlockStatus)status;

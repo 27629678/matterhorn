@@ -8,8 +8,17 @@
 
 #import "XYDataBlock.h"
 
+#import "XYClassProperty.h"
 #import "XYDataRuntimeUtils.h"
 #import "XYDataObjectExtension.h"
+
+@interface XYDataObject ()
+
+- (NSDictionary *)serverKey2LocalKey;
+
+- (NSDictionary *)localKey2ServerKey;
+
+@end    // XYDataObject Extension
 
 @interface XYDataBlock ()
 
@@ -33,16 +42,19 @@
 - (void)markNormal
 {
     [self switchBlockStatusTo:XYDataBlockStatusNone];
+    self.timestamp = @([NSDate date].timeIntervalSince1970);
 }
 
 - (void)markDeleted
 {
     [self switchBlockStatusTo:XYDataBlockStatusDeleted];
+    self.timestamp = @([NSDate date].timeIntervalSince1970);
 }
 
 - (void)markModified
 {
     [self switchBlockStatusTo:XYDataBlockStatusModified];
+    self.timestamp = @([NSDate date].timeIntervalSince1970);
 }
 
 - (NSArray *)ignoredProperties
@@ -51,6 +63,31 @@
 }
 
 #pragma mark - protocol methods
+
+- (void)merge:(NSDictionary *)json
+{
+    NSDictionary *p2p = propertiesOf(self, [XYMergeableObject class]);
+    [p2p enumerateKeysAndObjectsUsingBlock:^(NSString *property_name, XYClassProperty *property, BOOL *stop) {
+        NSString *server_key = [self.localKey2ServerKey objectForKey:property_name];
+        id obj = [json objectForKey:(server_key.length > 0 ? server_key : property_name)];
+        if (!obj) {
+            return;
+        }
+        
+        if ([obj isKindOfClass:property.cls] &&
+            ([XYDataRuntimeUtils.primitiveClasses containsObject:property.cls] ||
+             [XYDataRuntimeUtils.primitiveContainerClasses containsObject:property.cls]))
+        {
+            [self setValue:obj forKey:property_name];
+            
+            return;
+        }
+        
+        NSCAssert(NO, @"unhandled key:", (server_key.length > 0 ? server_key : property_name), @"value", obj);
+    }];
+    
+    [self markNormal];
+}
 
 - (NSDictionary *)allETags
 {
@@ -72,13 +109,45 @@
         return nil;
     }
     
-    NSMutableDictionary *values = nil;
-    NSError *error = [XYDataRuntimeUtils populateValues:&values fromBlock:self];
-    if (error) {
-        NSCAssert(NO, error.description);
+    NSMutableDictionary *values = [NSMutableDictionary dictionary];
+    NSDictionary *p2p = propertiesOf(self, [XYMergeableObject class]);
+    [p2p enumerateKeysAndObjectsUsingBlock:^(NSString *property_name, XYClassProperty *property, BOOL *stop) {
+        if ([self.ignoredProperties containsObject:property_name]) {
+            return;
+        }
         
-        return nil;
-    }
+        id value = [self valueForKey:property_name];
+        if (!value) {
+            if ([self.requiredProperties containsObject:property_name]) {
+                NSCAssert(NO, @"required value for key:", property_name);
+            }
+            
+            return;
+        }
+        
+        // ignore custom data type
+        if ([value conformsToProtocol:@protocol(XYCustomDataJsonSerializationProtocol)]) {
+            return;
+        }
+        
+        // ignore XYDataProtocol object
+        if ([value conformsToProtocol:@protocol(XYDataProtocol)]) {
+            NSCAssert(NO, @"MUST NOT BE XYDataProtocol object!");
+            
+            return;
+        }
+        
+        if ([[XYDataRuntimeUtils primitiveClasses] containsObject:property.cls] ||
+            [[XYDataRuntimeUtils primitiveContainerClasses] containsObject:property.cls])
+        {
+            NSString *server_key = [self.localKey2ServerKey objectForKey:property_name];
+            [values setValue:value forKey:(server_key.length > 0 ? server_key : property_name)];
+            
+            return;
+        }
+        
+        NSCAssert(NO, @"invalid data type.");
+    }];
     
     return values.copy;
 }

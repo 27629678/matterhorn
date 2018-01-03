@@ -12,9 +12,47 @@
 #import "XYDataRuntimeUtils.h"
 #import "XYDataObjectExtension.h"
 
+@interface XYDataObject ()
+
+- (NSDictionary *)serverKey2LocalKey;
+
+- (NSDictionary *)localKey2ServerKey;
+
+@end    // XYDataObject Extension
+
 @implementation XYDataContainer
 
 #pragma mark - protocol methods
+
+- (void)merge:(NSDictionary *)json
+{
+    NSDictionary *p2p = propertiesOf(self, [XYMergeableContainer class]);
+    [p2p enumerateKeysAndObjectsUsingBlock:^(NSString *property_name, XYClassProperty *property, BOOL *stop) {
+        NSString *server_key = [self.localKey2ServerKey objectForKey:property_name];
+        id obj = [json objectForKey:(server_key.length > 0 ? server_key : property_name)];
+        if (!obj) {
+            return;
+        }
+        
+        id value = [self valueForKey:property_name];
+        if (!value) {
+            value = [property.cls new];
+        }
+        
+        if ([value conformsToProtocol:@protocol(XYDataProtocol)]) {
+            [value merge:obj];
+            
+            return;
+        }
+        
+        // ignore custom data type obj
+        if ([value conformsToProtocol:@protocol(XYCustomDataJsonSerializationProtocol)]) {
+            return;
+        }
+        
+        NSCAssert(NO, @"unhandled key:", (server_key.length > 0 ? server_key : property_name), @"value", obj);
+    }];
+}
 
 - (NSDictionary *)allETags
 {
@@ -47,7 +85,8 @@
         if ([value conformsToProtocol:@protocol(XYDataProtocol)])
         {
             id obj = [value etagsForStatus:status];
-            [etags setValue:obj forKey:property_name];
+            NSString *server_key = [self.localKey2ServerKey objectForKey:property_name];
+            [etags setValue:obj forKey:(server_key.length > 0 ? server_key : property_name)];
             
             return;
         }
@@ -81,7 +120,8 @@
         if ([value conformsToProtocol:@protocol(XYDataProtocol)])
         {
             id obj = [value valuesForStatus:status];
-            [values setValue:obj forKey:property_name];
+            NSString *server_key = [self.localKey2ServerKey objectForKey:property_name];
+            [values setValue:obj forKey:(server_key.length > 0 ? server_key : property_name)];
             
             return;
         }

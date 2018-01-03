@@ -12,6 +12,10 @@
 
 @interface XYDataRuntimeUtils : NSObject
 
++ (NSArray<Class> *)primitiveClasses;
+
++ (NSArray<Class> *)primitiveContainerClasses;
+
 + (void)retrieveBlock:(XYMergeableObject *)block fromJson:(NSDictionary *)json;
 
 + (void)retrieveContainer:(XYMergeableContainer *)container fromJson:(NSDictionary *)json;

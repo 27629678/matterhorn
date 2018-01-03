@@ -89,6 +89,8 @@ int test_data_etags(void);
 
 int test_data_values(void);
 
+int test_data_merge(void);
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
@@ -109,6 +111,8 @@ int main(int argc, const char * argv[]) {
         assert(test_data_etags() == 0);
         
         assert(test_data_values() == 0);
+        
+        assert(test_data_merge() == 0);
         
         NSLog(@"-- END.");
     }
@@ -221,6 +225,40 @@ int test_data_values() {
     
     assert(values.count > 0);
     NSLog(@"-- Values:%@", values);
+    
+    return 0;
+}
+
+int test_data_merge() {
+    NSDictionary *json = @{
+                            @"c1" : @{
+                                        @"s1" : @{
+                                                @"version" : @"4.2.9"
+                                                },
+                                        @"s2" : @{
+                                                @"greeting" : @"Hello, World!"
+                                                }
+                                        
+                                        },
+                            @"s3" : @{
+                                    @"latitude" : @599,
+                                    @"longtitude" : @699
+                                    }
+                            };
+    Container2 *c2 = (Container2 *)data_container_constructor();
+    
+    assert([c2.c1.s1.version isEqualToString:@"1.0.0"]);
+    assert([c2.c1.s2.greeting isEqualToString:@"hello, world."]);
+    assert([c2.s3.latitude isEqualToNumber:@1]);
+    assert([c2.s3.longtitude isEqualToNumber:@20.3]);
+    [c2 merge:json];
+    assert([c2.c1.s1.version isEqualToString:@"4.2.9"]);
+    assert([c2.c1.s2.greeting isEqualToString:@"Hello, World!"]);
+    assert([c2.s3.latitude isEqualToNumber:@599]);
+    assert([c2.s3.longtitude isEqualToNumber:@699]);
+    
+    NSDictionary *values = [c2 jsonDictionary];
+    NSLog(@"-- Merged Values:%@", values);
     
     return 0;
 }
