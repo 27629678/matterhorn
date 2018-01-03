@@ -14,6 +14,8 @@ typedef NS_ENUM(NSUInteger, XYDataBlockStatus) {
     XYDataBlockStatusNone,                  // marked normal
     XYDataBlockStatusModified,              // marked modified
     XYDataBlockStatusDeleted,               // marked deleted
+    
+    XYDataBlockStatusAll = NSUIntegerMax,   // all
 };
 
 extern NSString* const kXYDataKey_ETag;

@@ -8,6 +8,7 @@
 
 #import "XYMergeableContainer.h"
 
+#import "XYDataBlock.h"
 #import "XYDataProtocol.h"
 
 @interface XYDataContainer : XYMergeableContainer <XYDataProtocol, XYDataJsonSerializationProtocol>
