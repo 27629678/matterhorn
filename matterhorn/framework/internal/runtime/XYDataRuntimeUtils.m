@@ -60,7 +60,32 @@
 
 + (void)retrieveContainer:(XYMergeableContainer *)container fromJson:(NSDictionary *)json
 {
-    
+    NSDictionary *p2p = propertiesOf(container, [XYMergeableContainer class]);
+    [p2p enumerateKeysAndObjectsUsingBlock:^(NSString *property_name, XYClassProperty *property, BOOL *stop) {
+        if (property_name.length == 0) {
+            NSCAssert(NO, @"");
+            return;
+        }
+        
+        if ([container.ignoredProperties containsObject:property_name]) {
+            return;
+        }
+        
+        id instance = [property.cls alloc];
+        id json_obj = [json objectForKey:property_name];
+        
+        // block & container
+        if ([instance isKindOfClass:[XYMergeableObject class]] ||
+            [instance isKindOfClass:[XYMergeableContainer class]])
+        {
+            instance = [instance initWithJsonDictionary:json_obj];
+            [container setValue:instance forKey:property_name];
+            
+            return;
+        }
+        
+        NSCAssert(NO, @"invalid data type");
+    }];
 }
 
 + (NSError *)populateValues:(NSDictionary *__autoreleasing *)dict fromBlock:(XYMergeableObject *)block

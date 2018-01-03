@@ -79,6 +79,8 @@ int test_run_time_utils(void);
 
 int test_data_block_deserialization(void);
 
+int test_data_container_deserialization(void);
+
 NSDictionary *test_data_block_serialization(void);
 
 NSDictionary *test_data_container_serialization(void);
@@ -97,6 +99,8 @@ int main(int argc, const char * argv[]) {
         assert(test_data_container_serialization().count > 0);
         
         assert(test_data_block_deserialization() == 0);
+        
+        assert(test_data_container_deserialization() == 0);
         
         NSLog(@"-- END.");
     }
@@ -180,6 +184,15 @@ int test_data_block_deserialization() {
     Setting1 *s1 = [[Setting1 alloc] initWithJsonDictionary:json];
     
     assert([s1.version isEqualToString:@"1.0.0"]);
+    
+    return 0;
+}
+
+int test_data_container_deserialization() {
+    NSDictionary *json = test_data_container_serialization();
+    Container2 *c2 = [[Container2 alloc] initWithJsonDictionary:json];
+    
+    assert([c2.c1.s1.version isEqualToString:@"1.0.0"]);
     
     return 0;
 }
