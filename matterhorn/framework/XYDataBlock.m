@@ -109,7 +109,11 @@
 - (instancetype)initWithJsonDictionary:(NSDictionary *)json
 {
     if (self = [super init]) {
-        [XYDataRuntimeUtils retrieveBlock:self fromJson:json];
+        self.etag = [json objectForKey:kXYDataKey_ETag];
+        self.status = [json objectForKey:kXYDataKey_Status];
+        self.timestamp = [json objectForKey:kXYDataKey_Date];
+        
+        [XYDataRuntimeUtils retrieveBlock:self fromJson:[json objectForKey:kXYDataKey_Value]];
     }
     
     return self;

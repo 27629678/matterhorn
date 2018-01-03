@@ -19,7 +19,43 @@
 
 + (void)retrieveBlock:(XYMergeableObject *)block fromJson:(NSDictionary *)json
 {
-    
+    NSDictionary *p2p = propertiesOf(block, [XYMergeableObject class]);
+    [p2p enumerateKeysAndObjectsUsingBlock:^(NSString *property_name, XYClassProperty *property, BOOL *stop) {
+        if (property_name.length == 0) {
+            NSCAssert(NO, @"");
+            return;
+        }
+        
+        if ([block.ignoredProperties containsObject:property_name]) {
+            return;
+        }
+        
+        id value = [json objectForKey:property_name];
+        
+        // primitive type
+        if ([[XYDataRuntimeUtils primitiveClasses] containsObject:property.cls]) {
+            [block setValue:value forKey:property_name];
+            
+            return;
+        }
+        
+        // primitive container type
+        if ([[XYDataRuntimeUtils primitiveContainerClasses] containsObject:property.cls]) {
+            [block setValue:value forKey:property_name];
+            
+            return;
+        }
+        
+        // custom object type
+        if ([property.cls conformsToProtocol:@protocol(XYCustomDataJsonSerializationProtocol)]) {
+            id instance = [[property.cls alloc] initWithCustomJsonDictionary:value];
+            [block setValue:instance forKey:property_name];
+            
+            return;
+        }
+        
+        NSCAssert(NO, @"invalid data type");
+    }];
 }
 
 + (void)retrieveContainer:(XYMergeableContainer *)container fromJson:(NSDictionary *)json
@@ -46,12 +82,11 @@
         if ([property.cls conformsToProtocol:@protocol(XYCustomDataJsonSerializationProtocol)]) {
             json_obj = [value jsonDictionaryForCustom];
         }
-        else if (![[XYDataRuntimeUtils primitiveClass] containsObject:property.cls]) {
-            NSCAssert(NO, @"invalid data type!!!");
-            return;
-        }
-        else {
+        else if ([[XYDataRuntimeUtils primitiveClasses] containsObject:property.cls]) {
             json_obj = value;
+        }
+        else if ([[XYDataRuntimeUtils primitiveContainerClasses] containsObject:property.cls]) {
+            // TODO: handle list and map type object
         }
         
         [json setValue:json_obj forKey:property_name];
@@ -111,7 +146,7 @@
 
 #pragma mark - private
 
-+ (NSArray<Class> *)primitiveClass
++ (NSArray<Class> *)primitiveClasses
 {
     static NSArray *classes = nil;
     static dispatch_once_t onceToken;
@@ -119,8 +154,19 @@
         classes = @[ [NSNull class],
                      [NSString class],
                      [NSNumber class],
-                     [NSMutableString class],
-                     [NSArray class],
+                     [NSMutableString class]
+                     ];
+    });
+    
+    return classes;
+}
+
++ (NSArray<Class> *)primitiveContainerClasses
+{
+    static NSArray *classes = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        classes = @[ [NSArray class],
                      [NSMutableArray class],
                      [NSDictionary class],
                      [NSMutableDictionary class]
