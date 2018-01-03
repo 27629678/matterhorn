@@ -19,6 +19,34 @@
 
 @implementation XYDataObject
 
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+    }
+    
+    return self;
+}
+
+#pragma mark - private
+
+- (void)installTransformComponents
+{
+    [[self transformDictionary] enumerateKeysAndObjectsUsingBlock:^(NSString *s, NSString *l, BOOL *stop) {
+        [self transformServerKey:s toLocalProperty:l];
+    }];
+}
+
+- (void)transformServerKey:(NSString *)s toLocalProperty:(NSString *)l
+{
+    if (s.length * l.length == 0) {
+        return;
+    }
+    
+    [self.s2l setObject:s forKey:l];
+    [self.l2s setObject:l forKey:s];
+}
+
 #pragma mark - getter & setter
 
 - (NSMutableDictionary *)s2l
@@ -51,6 +79,11 @@
     return @[];
 }
 
+- (NSDictionary<NSString *, NSString *> *)transformDictionary
+{
+    return @{};
+}
+
 - (NSDictionary *)serverKey2LocalKey
 {
     return self.s2l.copy;
@@ -59,16 +92,6 @@
 - (NSDictionary *)localKey2ServerKey
 {
     return self.l2s.copy;
-}
-
-- (void)transformServerKey:(NSString *)s toLocalProperty:(NSString *)l
-{
-    if (s.length * l.length == 0) {
-        return;
-    }
-    
-    [self.s2l setObject:s forKey:l];
-    [self.l2s setObject:l forKey:s];
 }
 
 @end

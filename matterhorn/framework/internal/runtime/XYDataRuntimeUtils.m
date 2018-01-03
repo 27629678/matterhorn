@@ -15,6 +15,14 @@
 #import "XYMergeableContainer.h"
 #import "XYDataObjectExtension.h"
 
+@interface XYDataObject ()
+
+- (NSDictionary *)serverKey2LocalKey;
+
+- (NSDictionary *)localKey2ServerKey;
+
+@end    // XYDataObject Extension
+
 @implementation XYDataRuntimeUtils
 
 + (void)retrieveBlock:(XYMergeableObject *)block fromJson:(NSDictionary *)json

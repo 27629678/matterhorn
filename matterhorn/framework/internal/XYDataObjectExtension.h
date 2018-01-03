@@ -14,10 +14,6 @@
 
 - (NSArray *)requiredProperties;
 
-- (NSDictionary *)serverKey2LocalKey;
-
-- (NSDictionary *)localKey2ServerKey;
-
-- (void)transformServerKey:(NSString *)s toLocalProperty:(NSString *)l;
+- (NSDictionary<NSString *, NSString *> *)transformDictionary;  // NSDictionary<ServerKey, LocalKey>
 
 @end
